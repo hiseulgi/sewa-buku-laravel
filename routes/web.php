@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'IndexController@index');
 
 Route::get('/home', function () {
     return view('home');
@@ -25,15 +23,7 @@ Route::get('/data_peminjam', function () {
     return view('peminjams/data_peminjam');
 });
 
-Route::get('lihat_data_peminjam', function () {
-    $peminjam = [
-        'Jessica',
-        'Maryono',
-        'Bagus',
-        'Sugab'
-    ];
-    return view('peminjams/lihat_data_peminjam', compact('peminjam'));
-});
+Route::get('lihat_data_peminjam', 'PeminjamController@lihat_data_peminjam');
 
 // Jobsheet 2
 
