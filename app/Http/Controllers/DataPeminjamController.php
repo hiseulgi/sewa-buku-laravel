@@ -5,19 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DataPeminjam;
 
-class DataPeminjamController extends Controller
-{
-    public function index(){
+class DataPeminjamController extends Controller {
+    public function index() {
         $data_peminjam = DataPeminjam::all()->sortBy('nama_peminjam');
         $jumlah_peminjam = $data_peminjam->count();
-        return view('data_peminjam.index', compact('data_peminjam','jumlah_peminjam'));
+        return view('data_peminjam.index', compact('data_peminjam', 'jumlah_peminjam'));
     }
 
-    public function create(){
+    public function create() {
         return view('data_peminjam.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request) {
         $data_peminjam = new DataPeminjam;
         $data_peminjam->kode_peminjam = $request->kode_peminjam;
         $data_peminjam->nama_peminjam = $request->nama_peminjam;
@@ -29,12 +28,12 @@ class DataPeminjamController extends Controller
         return redirect('data_peminjam');
     }
 
-    public function edit($id){
+    public function edit($id) {
         $peminjam = DataPeminjam::find($id);
         return view('data_peminjam.edit', compact('peminjam'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id) {
         $data_peminjam = DataPeminjam::find($id);
         $data_peminjam->kode_peminjam = $request->kode_peminjam;
         $data_peminjam->nama_peminjam = $request->nama_peminjam;
@@ -46,9 +45,81 @@ class DataPeminjamController extends Controller
         return redirect('data_peminjam');
     }
 
-    public function destroy($id){
+    public function destroy($id) {
         $data_peminjam = DataPeminjam::find($id);
         $data_peminjam->destroy($id);
         return redirect('data_peminjam');
+    }
+
+    // Latihan Collection
+    public function CobaCollection() {
+        $list = [
+            'Zhuge Liang',
+            'Sugab Gaming',
+            'Anya',
+            'Sang Senja',
+            'Nakuro'
+        ];
+
+        $collection = collect($list)->map(function ($nama) {
+            return ucwords($nama);
+        });
+        return $collection;
+    }
+
+    public function colFirst() {
+        $collection = DataPeminjam::all()->first();
+        return $collection;
+    }
+
+    public function colLast() {
+        $collection = DataPeminjam::all()->last();
+        return $collection;
+    }
+
+    public function colCount() {
+        $collection = DataPeminjam::all();
+        $jumlah = $collection->count();
+        return 'Jumah peminjam : ' . $jumlah;
+    }
+
+    public function colTake() {
+        $collection = DataPeminjam::all()->take(2);
+        return $collection;
+    }
+
+    public function colPluck() {
+        $collection = DataPeminjam::all()->pluck("nama_peminjam");
+        return $collection;
+    }
+
+    public function colWhere() {
+        $collection = DataPeminjam::all()->where('kode_peminjam', 'P004');
+        return $collection;
+    }
+
+    public function colWhereIn() {
+        $collection = DataPeminjam::all()->whereIn('kode_peminjam', ['P004', 'P001']);
+        return $collection;
+    }
+
+    public function colToArray() {
+        $collection = DataPeminjam::select('kode_peminjam', 'nama_peminjam')->take(3)->get();
+        $arr = $collection->toArray();
+        foreach ($arr as $peminjam) {
+            echo $peminjam['kode_peminjam'] . ' - ' . $peminjam['nama_peminjam'] . '<br>';
+        }
+    }
+
+    public function colToJson() {
+        $data = [
+            ['id'=>'P001','nama'=>'Sugab'],
+            ['id'=>'P002','nama'=>'Anya'],
+            ['id'=>'P003','nama'=>'Iru'],
+            ['id'=>'P004','nama'=>'Diva'],
+            ['id'=>'P005','nama'=>'Near']
+        ];
+        $collection = collect($data)->toJson();
+        return $collection;
     }
 }

@@ -28,6 +28,19 @@ Route::post('data_peminjam/update/{id}', 'DataPeminjamController@update')->name(
 Route::post('data_peminjam/delete/{id}', 'DataPeminjamController@destroy')->name('data_peminjam.destroy');
 // EOF data_peminjam Route group
 
+// Latihan Collection Route
+Route::get('coba_collection', 'DataPeminjamController@CobaCollection');
+Route::get('col_first', 'DataPeminjamController@colFirst');
+Route::get('col_last', 'DataPeminjamController@colLast');
+Route::get('col_count', 'DataPeminjamController@colCount');
+Route::get('col_take', 'DataPeminjamController@colTake');
+Route::get('col_pluck', 'DataPeminjamController@colPluck');
+Route::get('col_where', 'DataPeminjamController@colWhere');
+Route::get('col_wherein', 'DataPeminjamController@colWhereIn');
+Route::get('col_toarray', 'DataPeminjamController@colToArray');
+Route::get('col_tojson', 'DataPeminjamController@colToJson');
+// EOF Latihan Collection
+
 // Route::get('lihat_data_peminjam', 'PeminjamController@lihat_data_peminjam');
 
 // Jobsheet 2
