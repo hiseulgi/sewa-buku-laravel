@@ -15,15 +15,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index');
 
-Route::get('/home', function () {
+Route::get('home', function () {
     return view('home');
 });
 
-Route::get('/data_peminjam', function () {
-    return view('peminjams/data_peminjam');
-});
+// data_peminjam Route group
+Route::get('data_peminjam', 'DataPeminjamController@index');
+Route::get('data_peminjam/create', 'DataPeminjamController@create')->name('data_peminjam.create');
+Route::post('data_peminjam/store', 'DataPeminjamController@store')->name('data_peminjam.store');
+Route::get('data_peminjam/edit/{id}', 'DataPeminjamController@edit')->name('data_peminjam.edit');
+Route::post('data_peminjam/update/{id}', 'DataPeminjamController@update')->name('data_peminjam.update');
+Route::post('data_peminjam/delete/{id}', 'DataPeminjamController@destroy')->name('data_peminjam.destroy');
+// EOF data_peminjam Route group
 
-Route::get('lihat_data_peminjam', 'PeminjamController@lihat_data_peminjam');
+// Route::get('lihat_data_peminjam', 'PeminjamController@lihat_data_peminjam');
 
 // Jobsheet 2
 
