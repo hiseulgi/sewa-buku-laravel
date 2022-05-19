@@ -38,6 +38,11 @@
       <input type="text" name="pekerjaan" class="form-control">
     </div>
 
+    <div class="form-group">
+      <label>Telepon</label>
+      <input type="text" name="telepon" class="form-control">
+    </div>
+
     <div>
       <button class="btn btn-primary" type="submit">Simpan</button>
     </div>

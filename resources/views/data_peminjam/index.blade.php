@@ -17,6 +17,7 @@
         <th>Tanggal Lahir</th>
         <th>Alamat</th>
         <th>Pekerjaan</th>
+        <th>Nomor Telepon</th>
         <th>Edit</th>
         <th>Hapus</th>
       </tr>
@@ -31,6 +32,7 @@
         <td>{{$peminjam->tanggal_lahir}}</td>
         <td>{{$peminjam->alamat}}</td>
         <td>{{$peminjam->pekerjaan}}</td>
+        <td>{{!empty($peminjam->telepon['nomor_telepon'])? $peminjam->telepon['nomor_telepon'] : '-'}}</td>
         <td><a href="{{ route('data_peminjam.edit', $peminjam->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
         <td>
           <form action="{{ route('data_peminjam.destroy', $peminjam->id) }}" method="POST">

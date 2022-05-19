@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataPeminjam;
+use App\Models\Telepon;
 
 class DataPeminjamController extends Controller {
     public function index() {
@@ -25,11 +26,18 @@ class DataPeminjamController extends Controller {
         $data_peminjam->alamat = $request->alamat;
         $data_peminjam->pekerjaan = $request->pekerjaan;
         $data_peminjam->save();
+
+        $telepon = new Telepon;
+        $telepon->nomor_telepon = $request->telepon;
+        $data_peminjam->telepon()->save($telepon);
         return redirect('data_peminjam');
     }
 
     public function edit($id) {
         $peminjam = DataPeminjam::find($id);
+        if (!empty($peminjam->telepon->nomor_telepon)){
+            $peminjam->nomor_telepon = $peminjam->telepon->nomor_telepon;
+        }
         return view('data_peminjam.edit', compact('peminjam'));
     }
 
@@ -42,6 +50,27 @@ class DataPeminjamController extends Controller {
         $data_peminjam->alamat = $request->alamat;
         $data_peminjam->pekerjaan = $request->pekerjaan;
         $data_peminjam->update();
+
+        // update nomor telepon, jika sudah ada nomor telepon
+        if ($data_peminjam->telepon){
+            // jika telepon diisi maka update
+            if ($request->filled('nomor_telepon')){
+                $telepon = $data_peminjam->telepon;
+                $telepon->nomor_telepon = $request->input('nomor_peminjam');
+                $data_peminjam->telepon()->save($telepon);
+            } else {
+                // jika tidak diisi maka hapus nomor telepon
+                $data_peminjam->telepon()->delete();
+            }
+        } else {
+            // buat data baru, jika sebelumnya tidak ada nomor telepon
+            if($request->filled('nomor_telepon')){
+                $telepon = new Telepon;
+                $telepon->nomor_telepon = $request->nomor_telepon;
+                $data_peminjam->telepon()->save($telepon);
+            }
+        }
+
         return redirect('data_peminjam');
     }
 

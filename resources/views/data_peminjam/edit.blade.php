@@ -43,6 +43,11 @@
       <input type="text" name="pekerjaan" class="form-control" value="{{ $peminjam->pekerjaan }}">
     </div>
 
+    <div class="form-group">
+      <label>Telepon</label>
+      <input type="text" name="nomor_telepon" class="form-control" value="{{ $peminjam->nomor_telepon }}">
+    </div>
+
     <div>
       <button class="btn btn-primary" type="submit">Simpan</button>
     </div>
