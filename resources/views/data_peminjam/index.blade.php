@@ -28,7 +28,7 @@
         <td>{{$peminjam->id}}</td>
         <td>{{$peminjam->kode_peminjam}}</td>
         <td>{{$peminjam->nama_peminjam}}</td>
-        <td>{{$peminjam->jenis_kelamin}}</td>
+        <td>{{$peminjam->jenis_kelamin['nama_jenis_kelamin']}}</td>
         <td>{{$peminjam->tanggal_lahir}}</td>
         <td>{{$peminjam->alamat}}</td>
         <td>{{$peminjam->pekerjaan}}</td>

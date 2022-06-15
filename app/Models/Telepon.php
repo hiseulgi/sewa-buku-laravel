@@ -10,8 +10,7 @@ class Telepon extends Model {
     use HasFactory;
 
     protected $table = 'telepon';
-    protected $primarykey = 'id_peminjam';
-    protected $fillable = ['id_peminjam', 'nomor_telepon'];
+    protected $fillable = ['id', 'nomor_telepon'];
 
     public function peminjam() {
         return $this->belongsTo('App\Models\DataPeminjam', 'id');

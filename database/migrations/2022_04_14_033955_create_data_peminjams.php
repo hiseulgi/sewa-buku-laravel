@@ -17,12 +17,14 @@ class CreateDataPeminjams extends Migration
             $table->id();
             $table->string('kode_peminjam')->unique();
             $table->string('nama_peminjam');
-            $table->string('jenis_kelamin');
             $table->date('tanggal_lahir');
             $table->string('alamat');
             $table->string('pekerjaan');
             $table->string('foto');
+            $table->bigInteger('id_jenis_kelamin')->unsigned();
             $table->timestamps();
+
+            $table->foreign('id_jenis_kelamin')->references('id')->on('jenis_kelamin')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

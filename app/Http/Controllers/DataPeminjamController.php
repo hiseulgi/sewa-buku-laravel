@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataPeminjam;
+use App\Models\JenisKelamin;
 use App\Models\Telepon;
 
 class DataPeminjamController extends Controller {
@@ -14,14 +15,15 @@ class DataPeminjamController extends Controller {
     }
 
     public function create() {
-        return view('data_peminjam.create');
+        $list_jenis_kelamin = JenisKelamin::pluck('nama_jenis_kelamin', 'id');
+        return view('data_peminjam.create', compact('list_jenis_kelamin'));
     }
 
     public function store(Request $request) {
         $data_peminjam = new DataPeminjam;
         $data_peminjam->kode_peminjam = $request->kode_peminjam;
         $data_peminjam->nama_peminjam = $request->nama_peminjam;
-        $data_peminjam->jenis_kelamin = $request->jenis_kelamin;
+        $data_peminjam->id_jenis_kelamin = $request->id_jenis_kelamin;
         $data_peminjam->tanggal_lahir = $request->tanggal_lahir;
         $data_peminjam->alamat = $request->alamat;
         $data_peminjam->pekerjaan = $request->pekerjaan;
@@ -38,14 +40,16 @@ class DataPeminjamController extends Controller {
         if (!empty($peminjam->telepon->nomor_telepon)){
             $peminjam->nomor_telepon = $peminjam->telepon->nomor_telepon;
         }
-        return view('data_peminjam.edit', compact('peminjam'));
+        $list_jenis_kelamin = JenisKelamin::pluck('nama_jenis_kelamin', 'id');
+
+        return view('data_peminjam.edit', compact('peminjam', 'list_jenis_kelamin'));
     }
 
     public function update(Request $request, $id) {
         $data_peminjam = DataPeminjam::find($id);
         $data_peminjam->kode_peminjam = $request->kode_peminjam;
         $data_peminjam->nama_peminjam = $request->nama_peminjam;
-        $data_peminjam->jenis_kelamin = $request->jenis_kelamin;
+        $data_peminjam->id_jenis_kelamin = $request->id_jenis_kelamin;
         $data_peminjam->tanggal_lahir = $request->tanggal_lahir;
         $data_peminjam->alamat = $request->alamat;
         $data_peminjam->pekerjaan = $request->pekerjaan;
@@ -56,7 +60,7 @@ class DataPeminjamController extends Controller {
             // jika telepon diisi maka update
             if ($request->filled('nomor_telepon')){
                 $telepon = $data_peminjam->telepon;
-                $telepon->nomor_telepon = $request->input('nomor_peminjam');
+                $telepon->nomor_telepon = $request->input('nomor_telepon');
                 $data_peminjam->telepon()->save($telepon);
             } else {
                 // jika tidak diisi maka hapus nomor telepon
@@ -70,7 +74,6 @@ class DataPeminjamController extends Controller {
                 $data_peminjam->telepon()->save($telepon);
             }
         }
-
         return redirect('data_peminjam');
     }
 

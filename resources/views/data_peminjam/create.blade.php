@@ -16,14 +16,6 @@
     </div>
 
     <div class="form-group">
-      <label>Jenis Kelamin</label>
-      <select class="form-control" name="jenis_kelamin">
-        <option value="L">Laki-laki</option>
-        <option value="P">Perempuan</option>
-      </select>
-    </div>
-
-    <div class="form-group">
       <label>Tanggal Lahir</label>
       <input type="date" name="tanggal_lahir" class="form-control">
     </div>
@@ -41,6 +33,18 @@
     <div class="form-group">
       <label>Telepon</label>
       <input type="text" name="telepon" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Jenis Kelamin</label>
+      <select class="form-control" name="id_jenis_kelamin">
+        <option value="">Pilih Jenis Kelamin</option>
+        @foreach ($list_jenis_kelamin as $key => $value)
+        <option value="{{ $key }}">
+          {{ $value }}
+        </option>
+        @endforeach
+      </select>
     </div>
 
     <div>

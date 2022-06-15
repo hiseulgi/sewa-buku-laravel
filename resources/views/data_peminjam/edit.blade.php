@@ -17,14 +17,13 @@
 
     <div class="form-group">
       <label>Jenis Kelamin</label>
-      <select class="form-control" name="jenis_kelamin">
-        @if($peminjam->jenis_kelamin=="P")
-        <option value="L">Laki-laki</option>
-        <option value="P" selected>Perempuan</option>
-        @else if($peminjam->jenis_kelamin=="L")
-        <option value="L" selected>Laki-laki</option>
-        <option value="P">Perempuan</option>
-        @endif
+      <select class="form-control" name="id_jenis_kelamin">
+        <option value="">Pilih Jenis Kelamin</option>
+        @foreach ($list_jenis_kelamin as $key => $value)
+        <option value="{{ $key }}" {{$peminjam->id_jenis_kelamin == $key ? 'selected' : ''}}>
+          {{ $value }}
+        </option>
+        @endforeach
       </select>
     </div>
 

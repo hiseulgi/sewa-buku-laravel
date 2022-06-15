@@ -19,6 +19,13 @@ Route::get('home', function () {
     return view('home');
 });
 
+// peminjaman route group
+Route::get('peminjaman', 'PeminjamanController@index');
+Route::get('peminjaman/create', 'PeminjamanController@create')->name('peminjaman.create');
+Route::post('peminjaman/store', 'PeminjamanController@store')->name('peminjaman.store');
+Route::get('peminjaman/detail_peminjam/{id}', 'PeminjamanController@detail_peminjam')->name('peminjaman.detail_peminjam');
+Route::get('peminjaman/detail_buku/{id}', 'PeminjamanController@detail_buku')->name('peminjaman.detail_buku');
+
 // data_peminjam Route group
 Route::get('data_peminjam', 'DataPeminjamController@index');
 Route::get('data_peminjam/create', 'DataPeminjamController@create')->name('data_peminjam.create');

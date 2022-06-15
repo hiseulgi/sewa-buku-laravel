@@ -12,11 +12,11 @@ class CreateTelepon extends Migration {
      */
     public function up() {
         Schema::create('telepon', function (Blueprint $table) {
-            $table->id('id_peminjam')->unsigned();
+            $table->id()->unsigned();
             $table->string('nomor_telepon');
             $table->timestamps();
 
-            $table->foreign('id_peminjam')->references('id')->on('data_peminjams')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id')->references('id')->on('data_peminjams')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
