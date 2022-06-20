@@ -1,5 +1,7 @@
 @extends('layout.master')
 @section('content')
+
+@if(count($data_peminjam))
 <div class="container">
   <h4>Data Peminjam</h4>
 
@@ -27,7 +29,6 @@
         <th>Alamat</th>
         <th>Pekerjaan</th>
         <th>Nomor Telepon</th>
-        <th>Foto</th>
         <th>Edit</th>
         <th>Hapus</th>
       </tr>
@@ -46,13 +47,6 @@
         <td>{{$peminjam->alamat}}</td>
         <td>{{$peminjam->pekerjaan}}</td>
         <td>{{!empty($peminjam->telepon['nomor_telepon'])? $peminjam->telepon['nomor_telepon'] : '-'}}</td>
-        <td>
-          @if(empty($peminjam->foto))
-          <img src="{{ asset('foto_peminjam/null_photo.jpg') }}" alt="" style="width:50px;height:50px;">
-          @else
-          <img src="{{ asset('foto_peminjam/'.$peminjam->foto) }}" alt="" style="width:50px;height:50px;">
-          @endif
-        </td>
         <td><a href="{{ route('data_peminjam.edit', $peminjam->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
         <td>
           <form action="{{ route('data_peminjam.destroy', $peminjam->id) }}" method="POST">
@@ -65,13 +59,15 @@
     </tbody>
   </table>
 
-  <div class="pull-left">
-    <strong>
-      Jumlah Peminjam : {{$jumlah_peminjam}}
-    </strong>
-  </div>
   <div class="">
     <p>{{ $data_peminjam->links()  }}</p>
   </div>
 </div>
+
+@else
+<div class="">
+  <h4>Data {{ $cari }} tidak ditemukan</h4>
+  <a href="/data_peminjam"></a>
+</div>
+@endif
 @endsection

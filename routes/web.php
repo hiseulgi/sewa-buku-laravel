@@ -33,6 +33,7 @@ Route::post('data_peminjam/store', 'DataPeminjamController@store')->name('data_p
 Route::get('data_peminjam/edit/{id}', 'DataPeminjamController@edit')->name('data_peminjam.edit');
 Route::post('data_peminjam/update/{id}', 'DataPeminjamController@update')->name('data_peminjam.update');
 Route::post('data_peminjam/delete/{id}', 'DataPeminjamController@destroy')->name('data_peminjam.destroy');
+Route::get('data_peminjam/search', 'DataPeminjamController@search')->name('data_peminjam.search');
 // EOF data_peminjam Route group
 
 // Latihan Collection Route

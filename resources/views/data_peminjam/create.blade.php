@@ -3,7 +3,15 @@
 <div class="container">
   <h4>Tambah Data Peminjam</h4>
 
-  <form method="POST" action="{{ route('data_peminjam.store') }}">
+  @if (count($errors) > 0)
+  <div class="alert alert-danger">
+    @foreach ($errors->all() as $error)
+    <div class="">{{$error}}</div>
+    @endforeach
+  </div>
+  @endif
+
+  <form method="POST" action="{{ route('data_peminjam.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label>Kode Peminjam</label>
@@ -45,6 +53,11 @@
         </option>
         @endforeach
       </select>
+    </div>
+
+    <div class="form-group">
+      <label>Foto</label>
+      <input type="file" name="foto" class="form-control">
     </div>
 
     <div>

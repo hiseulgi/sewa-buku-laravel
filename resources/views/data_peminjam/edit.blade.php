@@ -3,7 +3,7 @@
 <div class="container">
   <h4>Edit Data Peminjam</h4>
 
-  <form method="POST" action="{{ route('data_peminjam.update', $peminjam->id) }}">
+  <form method="POST" action="{{ route('data_peminjam.update', $peminjam->id) }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label>Kode Peminjam</label>
@@ -47,6 +47,11 @@
       <input type="text" name="nomor_telepon" class="form-control" value="{{ $peminjam->nomor_telepon }}">
     </div>
 
+    <div class="form-group">
+      <label>Foto</label>
+      <input type="file" name="foto" class="form-control">
+    </div>
+    
     <div>
       <button class="btn btn-primary" type="submit">Simpan</button>
     </div>
