@@ -9,8 +9,11 @@ use App\Models\DataPeminjam;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PeminjamanController extends Controller
-{
+class PeminjamanController extends Controller{
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     public function index(){
         $data_peminjaman = Peminjaman::all()->sortBy('id');

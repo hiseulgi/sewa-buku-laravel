@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\DataPeminjam;
 use App\Models\JenisKelamin;
 use App\Models\Telepon;
+use App\Models\User;
 use Illuminate\Support\Facades\Session as Session;
 use Illuminate\Support\Facades\Storage as Storage;
 
 class DataPeminjamController extends Controller {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index() {
         $jumlah_peminjam = DataPeminjam::count();
         $data_peminjam = DataPeminjam::orderBy('id', 'asc')->paginate(5);
@@ -42,6 +47,7 @@ class DataPeminjamController extends Controller {
         $data_peminjam->alamat = $request->alamat;
         $data_peminjam->pekerjaan = $request->pekerjaan;
         $data_peminjam->foto = $nama_file;
+        $data_peminjam->user_id = $request->user_id;
         $data_peminjam->save();
 
         $telepon = new Telepon;
@@ -80,6 +86,11 @@ class DataPeminjamController extends Controller {
             $data_peminjam->pekerjaan = $request->pekerjaan;
 
             $data_peminjam->update();
+
+            // find user
+            $user_id = DataPeminjam::where('id',$id)->pluck('user_id');
+            $user = User::where('id',$user_id);
+            $user->update(['name'=>$request->nama_peminjam]);
         } else {
             $data_peminjam->kode_peminjam = $request->kode_peminjam;
             $data_peminjam->nama_peminjam = $request->nama_peminjam;
@@ -88,6 +99,11 @@ class DataPeminjamController extends Controller {
             $data_peminjam->alamat = $request->alamat;
             $data_peminjam->pekerjaan = $request->pekerjaan;
             $data_peminjam->update();
+
+            // find user
+            $user_id = DataPeminjam::where('id',$id)->pluck('user_id');
+            $user = User::where('id',$user_id);
+            $user->update(['name'=>$request->nama_peminjam]);
         }
 
         // update nomor telepon, jika sudah ada nomor telepon
@@ -115,10 +131,13 @@ class DataPeminjamController extends Controller {
     }
 
     public function destroy($id) {
+        $user_id = DataPeminjam::where('id',$id)->pluck('user_id');
+        $user = User::where('id',$user_id);
+        $user->delete();
+        
         $data_peminjam = DataPeminjam::find($id);
-        $data_peminjam->destroy($id);
-
-        Session::flash('flash_message', 'Data berhasil dihapus!');
+        $data_peminjam->delete();
+        Session::flash('flash_message_hapus', 'Data peminjam berhasil dihapus');
         Session::flash('penting', true);
         return redirect('data_peminjam');
     }

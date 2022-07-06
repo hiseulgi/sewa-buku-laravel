@@ -5,11 +5,11 @@
 
   @include('_partial/flash_message')
 
-  <p align='right'>
+  <!-- <p align='right'>
     <a href="{{route('data_peminjam.create')}}" class="btn btn-primary">
       Tambah Data Peminjam
     </a>
-  </p>
+  </p> -->
 
   <form action="{{ route('data_peminjam.search') }}" method="get">
     @csrf

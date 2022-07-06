@@ -12,6 +12,7 @@
   @endif
 
   <form method="POST" action="{{ route('data_peminjam.store') }}" enctype="multipart/form-data">
+    <input type="hidden" name="user_id" class="form-control" value="{{ $user_id }}">
     @csrf
     <div class="form-group">
       <label>Kode Peminjam</label>
@@ -20,7 +21,7 @@
 
     <div class="form-group">
       <label>Nama Peminjam</label>
-      <input type="text" name="nama_peminjam" class="form-control">
+      <input type="text" name="nama_peminjam" class="form-control" value="{{ $name }}">
     </div>
 
     <div class="form-group">

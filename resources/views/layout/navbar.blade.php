@@ -6,13 +6,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        @if(Auth::check() && Auth::user())
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('data_peminjam.index')}}">Data Peminjam</a>
+          <a class="nav-link" aria-current="page" href="{{route('buku.index')}}">Data Buku</a>
+        </li>
+        @endif
+        
+        @if(Auth::check() && Auth::user()->level == 'admin')
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{route('data_peminjam.index')}}">Data Peminjam</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('peminjaman.index')}}">Transaksi Peminjaman</a>
+          <a class="nav-link" aria-current="page" href="{{route('peminjaman.index')}}">Transaksi Peminjaman</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{route('user.index')}}">User</a>
+        </li>
+        @endif
 
         <li class="nav-item">
           <a href="{{ route('logout') }}" class="btn btn-danger btn-sm" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
